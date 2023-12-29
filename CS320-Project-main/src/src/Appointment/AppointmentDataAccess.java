@@ -18,7 +18,7 @@ public class AppointmentDataAccess {
             PreparedStatement preparedStatement = databaseConnection.prepareStatement(sql);
             preparedStatement.setDate(1, new java.sql.Date(appointment.getDate().getTime()));
             preparedStatement.setString(2, appointment.getTime());
-            preparedStatement.setString(3, appointment.getPatientName());
+            preparedStatement.setString(3, appointment.getPatient_name());
             preparedStatement.setString(4, appointment.getNotes());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -40,7 +40,7 @@ public class AppointmentDataAccess {
                 String time = resultSet.getString("time");
                 String notes = resultSet.getString("notes");
                 String patientName = resultSet.getString("patient_name"); // Assuming you still want to retrieve patient name
-                appointments.add(new Appointment(id, date, time, patientName, notes));
+                appointments.add(new Appointment(id, (java.sql.Date) date, time, patientName, notes));
             }
         } catch (SQLException e) {
             e.printStackTrace();
