@@ -2,6 +2,7 @@ package Main;
 
 import Appointment.Appointment;
 import Appointment.AppointmentDataAccess;
+import Clinic.ClinicDataAccess;
 import Patient.Patient;
 import Patient.PatientDataAccess;
 import Main.InputValidator;
@@ -25,17 +26,18 @@ public class Menu {
 
     public void displayMainMenu() {
         System.out.println("Clinic Booking System (CBS)");
-        System.out.println("Press 1 to Enter Patient information");
-        System.out.println("Press 2 to List all Patients");
-        System.out.println("Press 3 to Update Patient information");
-        System.out.println("Press 4 to Delete a Patient");
-        System.out.println("Press 5 to View available appointments");
-        System.out.println("Press 6 View scheduled appointments");
-        System.out.println("Press 7 Create an appointment");
-        System.out.println("Press 8 to Update an appointment");
-        System.out.println("Press 9 to Delete an appointment");
-        System.out.println("Press 10 to View report schedule appointments of the month");
-        System.out.println("Press 0 to Exit");
+        System.out.println("Type 1 to Enter Patient information");
+        System.out.println("Type 2 to List all Patients");
+        System.out.println("Type 3 to Update Patient information");
+        System.out.println("Type 4 to Delete a Patient");
+        System.out.println("Type 5 to View available appointments");
+        System.out.println("Type 6 View scheduled appointments");
+        System.out.println("Type 7 Create an appointment");
+        System.out.println("Type 8 to Update an appointment");
+        System.out.println("Type 9 to Delete an appointment");
+        System.out.println("Type 10 to View report schedule appointments of the month");
+        System.out.println("Type 11 to View details of Clinic");
+        System.out.println("Type 0 to Exit");
         System.out.print("Select an option: ");
     }
 
@@ -154,6 +156,10 @@ public class Menu {
                                 ", Patient Name: " + appointment.getPatientName() +
                                 ", Notes: " + appointment.getNotes());
                     }
+                    break;
+
+                case 11:
+                    ClinicDataAccess.clinicInfo();
                     break;
 
                 case 0:
