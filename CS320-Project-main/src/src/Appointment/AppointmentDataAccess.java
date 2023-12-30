@@ -14,33 +14,38 @@ public class AppointmentDataAccess {
 
     public void createAppointment(Appointment appointment) {
         try {
-            String sql = "INSERT INTO appointment (date, time, patient_name, notes) VALUES (?, ?, ?, ?)";
+            String sql = "INSERT INTO appointment (date, time, patient_name, prescription) VALUES (?, ?, ?, ?)";
             PreparedStatement preparedStatement = databaseConnection.prepareStatement(sql);
             preparedStatement.setDate(1, new java.sql.Date(appointment.getDate().getTime()));
             preparedStatement.setString(2, appointment.getTime());
             preparedStatement.setString(3, appointment.getPatient_name());
-            preparedStatement.setString(4, appointment.getNotes());
-            preparedStatement.executeUpdate();
+            preparedStatement.setString(4, appointment.getPrescription());
+            int rowsInserted = preparedStatement.executeUpdate();
+
+            if (rowsInserted > 0) {
+                System.out.println("Appointment created successfully.");
+            } else {
+                System.out.println("Failed to create appointment.");
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public List<Appointment> getAppointmentsByPatientId(int patientId) {
+    public List<Appointment> listAllAppointments() {
         List<Appointment> appointments = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM appointment WHERE patient_id = ?";
+            String sql = "SELECT * FROM appointment";
             PreparedStatement preparedStatement = databaseConnection.prepareStatement(sql);
-            preparedStatement.setInt(1, patientId);
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                int id = resultSet.getInt("id");
+                int appointment_id = resultSet.getInt("appointment_id");
                 Date date = resultSet.getDate("date");
                 String time = resultSet.getString("time");
-                String notes = resultSet.getString("notes");
-                String patientName = resultSet.getString("patient_name"); // Assuming you still want to retrieve patient name
-                appointments.add(new Appointment(id, (java.sql.Date) date, time, patientName, notes));
+                String prescription = resultSet.getString("prescription");
+                String patientName = resultSet.getString("patient_name");
+                appointments.add(new Appointment(appointment_id, (java.sql.Date) date, time, patientName, prescription));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -48,9 +53,53 @@ public class AppointmentDataAccess {
         return appointments;
     }
 
+    public List<Appointment> listAppointmentByAppointmentId(int appointmentId) {
+        List<Appointment> appointments = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM appointment WHERE appointment_id = ?";
+            PreparedStatement preparedStatement = databaseConnection.prepareStatement(sql);
+            preparedStatement.setInt(1, appointmentId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                int appointment_id = resultSet.getInt("appointment_id");
+                Date date = resultSet.getDate("date");
+                String time = resultSet.getString("time");
+                String prescription = resultSet.getString("prescription");
+                String patientName = resultSet.getString("patient_name");
+                appointments.add(new Appointment(appointment_id, (java.sql.Date) date, time, patientName, prescription));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return appointments;
+    }
+
+    public void updateAppointment(Appointment appointment) {
+        try {
+            String sql = "UPDATE appointment SET date = ?, time = ?, patient_name = ?, prescription = ? WHERE appointment_id = ?";
+            PreparedStatement preparedStatement = databaseConnection.prepareStatement(sql);
+            preparedStatement.setDate(1, new java.sql.Date(appointment.getDate().getTime()));
+            preparedStatement.setString(2, appointment.getTime());
+            preparedStatement.setString(3, appointment.getPatient_name());
+            preparedStatement.setString(4, appointment.getPrescription());
+            preparedStatement.setInt(5, appointment.getAppointment_id());
+
+            int rowsUpdated = preparedStatement.executeUpdate();
+
+            if (rowsUpdated > 0) {
+                System.out.println("Appointment with ID " + appointment.getAppointment_id() + " has been updated.");
+            } else {
+                System.out.println("No appointment found with ID " + appointment.getAppointment_id() + ". No records were updated.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void deleteAppointment(int appointmentId) {
         try {
-            String sql = "DELETE FROM appointment WHERE id = ?";
+            String sql = "DELETE FROM appointment WHERE appointment_id = ?";
             PreparedStatement preparedStatement = databaseConnection.prepareStatement(sql);
             preparedStatement.setInt(1, appointmentId);
             int rowsDeleted = preparedStatement.executeUpdate();
