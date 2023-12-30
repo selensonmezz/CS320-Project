@@ -7,7 +7,12 @@ public class Clinic {
     private String contactDetails;
 
 
-    public Clinic() {}
+    public Clinic(int clinicId, String clinicName, String clinicAddress, String contactDetails) {
+        this.clinicId = clinicId;
+        this.clinicName = clinicName;
+        this.clinicAddress = clinicAddress;
+        this.contactDetails = contactDetails;
+    }
 
 
     public int getClinicId() {return clinicId;}
