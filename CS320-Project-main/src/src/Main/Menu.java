@@ -50,6 +50,13 @@ public class Menu {
         while (!exit) {
             displayMainMenu();
             int choice = scanner.nextInt();
+            // Check if the choice is within the range [0, 11]
+            if (choice >= 0 && choice <= 11) {
+                scanner.nextLine();
+                break; // Input is valid, exit the loop
+            } else {
+                System.out.println("Invalid input. Number must be between 0 and 11.");
+            }
             scanner.nextLine(); // Consume newline
 
             switch (choice) {
