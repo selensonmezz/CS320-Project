@@ -44,21 +44,30 @@ public class Menu {
     public void initiateMenu() throws ParseException {
         Scanner scanner = new Scanner(System.in);
         boolean exit = false;
+        int choice = 0;
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
 
         while (!exit) {
             displayMainMenu();
-            int choice = scanner.nextInt();
-            // Check if the choice is within the range [0, 11]
-            if (choice >= 0 && choice <= 11) {
-                scanner.nextLine();
-                break; // Input is valid, exit the loop
-            } else {
-                System.out.println("Invalid input. Number must be between 0 and 11.");
-            }
-            scanner.nextLine(); // Consume newline
+            while (true) {
+                System.out.println("Enter an integer between 0 and 11: ");
 
+                if (scanner.hasNextInt()) {
+                    choice = scanner.nextInt();
+
+                    // Check if the choice is within the range [0, 11]
+                    if (choice >= 0 && choice <= 11) {
+                        scanner.nextLine();
+                        break; // Input is valid, exit the loop
+                    } else {
+                        System.out.println("Invalid input. Number must be between 0 and 11.");
+                    }
+                } else {
+                    System.out.println("Invalid input. Please enter an integer.");
+                    scanner.next(); // Clear the invalid input
+                }
+            }
             switch (choice) {
                 case 1:
                     System.out.println("Enter patient ID, first name, last name, phone number:");
