@@ -34,4 +34,33 @@ import java.util.List;
             int lastDayOfMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
             return dayToCheck == lastDayOfMonth;
         }
+
+        private List<Appointment> filterLastMonthAppointments(List<Appointment> appointments) {
+            Calendar lastMonth = Calendar.getInstance();
+            lastMonth.add(Calendar.MONTH, -1);
+
+            java.util.Date lastMonthStart = lastMonth.getTime();
+            lastMonth.set(Calendar.DAY_OF_MONTH, lastMonth.getActualMaximum(Calendar.DAY_OF_MONTH));
+            java.util.Date lastMonthEnd = lastMonth.getTime();
+
+            return appointments.stream()
+                    .filter(appointment -> appointment.getDate().after(lastMonthStart) && appointment.getDate().before(lastMonthEnd))
+                    .toList();
+        }
+
+        private void displaySummaryReport(List<Appointment> appointments) {
+            System.out.println("Last Month's Appointments Summary Report:");
+            System.out.println("----------------------------------------");
+
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+
+            for (Appointment appointment : appointments) {
+                System.out.println("ID: " + appointment.getAppointment_id());
+                System.out.println("Date: " + dateFormat.format(appointment.getDate()));
+                System.out.println("Time: " + appointment.getTime());
+                System.out.println("Patient Name: " + appointment.getPatient_name());
+                System.out.println("Patient Prescription: " + appointment.getPrescription());
+                System.out.println("----------------------------------------");
+            }
+        }
     }
