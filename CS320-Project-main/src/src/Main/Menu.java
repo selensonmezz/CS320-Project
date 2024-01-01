@@ -21,9 +21,12 @@ public class Menu {
     private AppointmentDataAccess appointmentDataAccess;
     private PatientDataAccess patientDataAccess;
 
-    public Menu(AppointmentDataAccess appointmentDataAccess, PatientDataAccess patientDataAccess) {
+    private ClinicDataAccess clinicDataAccess;
+
+    public Menu(AppointmentDataAccess appointmentDataAccess, PatientDataAccess patientDataAccess, ClinicDataAccess clinicDataAccess) {
         this.appointmentDataAccess = appointmentDataAccess;
         this.patientDataAccess = patientDataAccess;
+        this.clinicDataAccess = clinicDataAccess;
     }
 
     public void displayMainMenu() {
@@ -256,7 +259,7 @@ public class Menu {
                     break;
 
                 case 11:
-                    ClinicDataAccess.clinicInfo();
+                    clinicDataAccess.clinicInfo();
                     break;
 
                 case 0:

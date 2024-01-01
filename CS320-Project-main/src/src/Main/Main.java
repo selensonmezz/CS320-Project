@@ -13,7 +13,7 @@ public class Main {
         ClinicDataAccess clinicDataAccess = new ClinicDataAccess(DatabaseConnector.getConnection());
 
         // Initialize and start the menu
-        Menu menu = new Menu(appointmentDataAccess, patientDataAccess);
+        Menu menu = new Menu(appointmentDataAccess, patientDataAccess, clinicDataAccess);
         try {
             menu.initiateMenu();
         } catch (Exception e) {
