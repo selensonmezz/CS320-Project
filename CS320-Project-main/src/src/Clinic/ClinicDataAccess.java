@@ -12,27 +12,29 @@ public class ClinicDataAccess {
 
 
 
-    public Clinic getClinicInfo(int clinicId) {
-        String sql = "SELECT * FROM clinic WHERE clinic_id = ?";
-        Clinic clinic = null;
-
-        try (PreparedStatement preparedStatement = databaseConnection.prepareStatement(sql)) {
-            preparedStatement.setInt(1, clinicId);
+    public void getClinicInfo() {
+        try {
+            String sql = "SELECT * FROM clinic";
+            PreparedStatement preparedStatement = databaseConnection.prepareStatement(sql);
             ResultSet resultSet = preparedStatement.executeQuery();
 
-            if (resultSet.next()) {
-                int id = resultSet.getInt("clinic_id");
-                String name = resultSet.getString("clinic_name");
-                String location = resultSet.getString("location");
+            System.out.println("Clinic Info:");
+            while (resultSet.next()) {
+                int clinicId = resultSet.getInt("clinic_id");
+                String clinicName = resultSet.getString("clinic_name");
+                String clinicLocation = resultSet.getString("clinic_location");
                 String contactDetails = resultSet.getString("contact_details");
-
-                clinic = new Clinic(id, name, location, contactDetails);
+                System.out.println("Clinic ID: " + clinicId + ", Clinic Name: " + clinicName + ", Clinic Location: " + clinicLocation + ", Contact Details: " + contactDetails);
             }
+            resultSet.close();
+            preparedStatement.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        return clinic;
     }
 
 }
+
+
+
+
