@@ -93,7 +93,7 @@ public class Menu {
                     break;
 
                 case 2:
-                    PatientDataAccess.listAllPatients();
+                    patientDataAccess.listAllPatients();
                     break;
 
                 case 3:
