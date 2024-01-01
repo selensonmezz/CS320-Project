@@ -3,9 +3,6 @@ package ReportGenerator;
 import Appointment.Appointment;
 import Appointment.AppointmentDataAccess;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
