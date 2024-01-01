@@ -9,6 +9,8 @@ public class PatientDataAccess {
         this.databaseConnection = databaseConnection;
     }
 
+
+
     public void insertPatient(Patient patient) {
         try {
             String sql = "INSERT INTO patient (patient_id, first_name, last_name, phone_num) VALUES (?, ?, ?, ?)";
@@ -53,6 +55,26 @@ public class PatientDataAccess {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public void listAllPatients() {
+        try {
+            String sql = "SELECT * FROM patient;";
+            PreparedStatement preparedStatement = databaseConnection.prepareStatement(sql);
+            ResultSet r = preparedStatement.executeQuery();
+            while(r.next()) {
+                int patient_id = r.getInt("patient_id");
+                String patient_name = r.getString("first_name");
+                String patient_lastName = r.getString("last_name");
+                String phone_number = r.getString("phone_num");
+                System.out.println(patient_id + " " + patient_name + " " + patient_lastName + " " + phone_number);
+            }
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 
 }
