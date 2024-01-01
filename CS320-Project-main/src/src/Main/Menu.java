@@ -45,6 +45,7 @@ public class Menu {
         Scanner scanner = new Scanner(System.in);
         boolean exit = false;
         int choice = 0;
+        boolean validInput = false;
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
 
@@ -70,9 +71,18 @@ public class Menu {
             }
             switch (choice) {
                 case 1:
-                    System.out.println("Enter patient ID, first name, last name, phone number:");
-                    int patientId = scanner.nextInt();
-                    scanner.nextLine();
+                    validInput = false;
+                    int patientId = 0;
+                    while (!validInput) {
+                        System.out.println("Enter patient ID (integer only), first name, last name, phone number:");
+                        String input = scanner.nextLine(); // Read the whole line as a string
+                        try {
+                            patientId = Integer.parseInt(input); // Try to parse the integer
+                            validInput = true; // If successful, set validInput to true to exit the loop
+                        } catch (NumberFormatException e) {
+                            System.out.println("Patient ID must be an integer. Please try again.");
+                        }
+                    }
                     String firstName = scanner.nextLine();
                     String lastName = scanner.nextLine();
                     String phoneNum = scanner.nextLine();
@@ -85,9 +95,18 @@ public class Menu {
                     break;
 
                 case 3:
+                    validInput = false;
                     System.out.println("Enter patient ID to update:");
-                    int updatePatientId = scanner.nextInt();
-                    scanner.nextLine(); // Consume newline after numeric input
+                    int updatePatientId = 0;
+                    while (!validInput) {
+                        String input = scanner.nextLine();
+                        try {
+                            updatePatientId = Integer.parseInt(input);
+                            validInput = true;
+                        } catch (NumberFormatException e) {
+                            System.out.println("Patient ID must be an integer. Please try again.");
+                        }
+                    }
                     System.out.println("Enter new first name, last name, and phone number:");
                     String newFirstName = scanner.nextLine();
                     String newLastName = scanner.nextLine();
@@ -97,9 +116,18 @@ public class Menu {
                     break;
 
                 case 4:
+                    validInput = false;
                     System.out.println("Enter patient ID to delete:");
-                    int deletePatientId = scanner.nextInt();
-                    scanner.nextLine();
+                    int deletePatientId = 0;
+                    while (!validInput) {
+                        String input = scanner.nextLine();
+                        try {
+                            deletePatientId = Integer.parseInt(input);
+                            validInput = true;
+                        } catch (NumberFormatException e) {
+                            System.out.println("Patient ID must be an integer. Please try again.");
+                        }
+                    }
                     patientDataAccess.deletePatient(deletePatientId);
                     break;
 
