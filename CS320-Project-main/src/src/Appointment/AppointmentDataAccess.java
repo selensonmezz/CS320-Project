@@ -54,6 +54,33 @@ public class AppointmentDataAccess {
         return appointments;
     }
 
+    public List<String> listAvailableAppointments(Date date) {
+        List<String> availableSlots = new ArrayList<>();
+        try {
+
+            String sql = "SELECT time FROM appointment WHERE date = ?";
+            PreparedStatement preparedStatement = databaseConnection.prepareStatement(sql);
+            preparedStatement.setDate(1, new java.sql.Date(date.getTime()));
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            Set<String> bookedSlots = new HashSet<>();
+            while (resultSet.next()) {
+                String time = resultSet.getString("time");
+                bookedSlots.add(time);
+            }
+
+            String[] allTimeSlots = {"09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00"};
+            for (String slot : allTimeSlots) {
+                if (!bookedSlots.contains(slot)) {
+                    availableSlots.add(slot);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return availableSlots;
+    }
+
     public void updateAppointment(Appointment appointment) {
         try {
             String sql = "UPDATE appointment SET date = ?, time = ?, patient_name = ?, notes = ? WHERE appointment_id = ?";

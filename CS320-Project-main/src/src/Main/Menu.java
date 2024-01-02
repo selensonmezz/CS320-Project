@@ -221,6 +221,25 @@ public class Menu {
                     clinicDataAccess.getClinicInfo();
                     break;
 
+                case 11:
+                    System.out.println("Enter date to view available appointments (yyyy-MM-dd):");
+                    String dateInput = scanner.nextLine();
+                    try {
+                        Date inputDate = new SimpleDateFormat("yyyy-MM-dd").parse(dateInput);
+                        List<String> availableAppointments = appointmentDataAccess.listAvailableAppointments(inputDate);
+                        if (availableAppointments.isEmpty()) {
+                            System.out.println("No available appointments for the selected date.");
+                        } else {
+                            System.out.println("Available appointments for " + dateInput + ":");
+                            for (String timeSlot : availableAppointments) {
+                                System.out.println("Time: " + timeSlot);
+                            }
+                        }
+                    } catch (ParseException e) {
+                        System.out.println("Error: Invalid date format. Please enter the date in the format yyyy-MM-dd.");
+                    }
+                    break;
+
                 case 0:
                     exit = true;
                     break;
