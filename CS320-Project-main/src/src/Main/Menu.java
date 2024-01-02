@@ -259,7 +259,7 @@ public class Menu {
                     break;
 
                 case 11:
-                    clinicDataAccess.clinicInfo();
+                    clinicDataAccess.getClinicInfo();
                     break;
 
                 case 0:
