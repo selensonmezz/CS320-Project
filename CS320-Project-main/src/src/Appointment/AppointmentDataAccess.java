@@ -81,6 +81,28 @@ public class AppointmentDataAccess {
         return availableSlots;
     }
 
+    public Appointment getAppointmentDetails(int appointmentId) {
+        Appointment appointment = null;
+        try {
+            String sql = "SELECT * FROM appointment WHERE appointment_id = ?";
+            PreparedStatement preparedStatement = databaseConnection.prepareStatement(sql);
+            preparedStatement.setInt(1, appointmentId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                int appointment_id = resultSet.getInt("appointment_id");
+                Date date = resultSet.getDate("date");
+                String time = resultSet.getString("time");
+                String prescription = resultSet.getString("notes");
+                String patientName = resultSet.getString("patient_name");
+                appointment = new Appointment(appointment_id, date, time, patientName, prescription);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return appointment;
+    }
+
     public void updateAppointment(Appointment appointment) {
         try {
             String sql = "UPDATE appointment SET date = ?, time = ?, patient_name = ?, notes = ? WHERE appointment_id = ?";

@@ -44,6 +44,7 @@ public class Menu {
         System.out.println("Type 9 to Delete an appointment");
         System.out.println("Type 10 to View report schedule appointments of the month");
         System.out.println("Type 11 to View details of Clinic");
+        System.out.println("Type 12 to View the prescription of a patient");
         System.out.println("Type 0 to Exit");
         System.out.print("Select an option: ");
     }
@@ -59,13 +60,13 @@ public class Menu {
         while (!exit) {
             displayMainMenu();
             while (true) {
-                System.out.println("Enter an integer between 0 and 11: ");
+                System.out.println("Enter an integer between 0 and 12: ");
 
                 if (scanner.hasNextInt()) {
                     choice = scanner.nextInt();
 
                     // Check if the choice is within the range [0, 11]
-                    if (choice >= 0 && choice <= 11) {
+                    if (choice >= 0 && choice <= 12) {
                         scanner.nextLine();
                         break; // Input is valid, exit the loop
                     } else {
@@ -239,6 +240,31 @@ public class Menu {
 
                 case 11:
                     clinicDataAccess.getClinicInfo();
+                    break;
+
+                case 12:
+                    System.out.println("Listing all appointments:");
+                    List<Appointment> allAppointments = appointmentDataAccess.listAllAppointments();
+                    for (Appointment appointment : allAppointments) {
+                        System.out.println("Appointment ID: " + appointment.getAppointment_id() +
+                                ", Date: " + appointment.getDate() +
+                                ", Time: " + appointment.getTime() +
+                                ", Patient Name: " + appointment.getPatient_name() +
+                                ", Prescription: " + appointment.getPrescription());
+                    }
+                    System.out.println("Enter the appointment ID to view prescription:");
+                    int appointmentIdForPrescription = scanner.nextInt();
+                    scanner.nextLine(); // Consume newline character
+                    Appointment selectedAppointment = appointmentDataAccess.getAppointmentDetails(appointmentIdForPrescription);
+                    if (selectedAppointment != null) {
+                        System.out.println("Appointment Details - ID: " + selectedAppointment.getAppointment_id() +
+                                ", Date: " + selectedAppointment.getDate() +
+                                ", Time: " + selectedAppointment.getTime() +
+                                ", Patient Name: " + selectedAppointment.getPatient_name() +
+                                ", Prescription: " + selectedAppointment.getPrescription());
+                    } else {
+                        System.out.println("Appointment with ID " + appointmentIdForPrescription + " not found.");
+                    }
                     break;
 
                 case 0:
