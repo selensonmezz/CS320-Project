@@ -217,44 +217,6 @@ public class Menu {
                     reportGenerator.generateSummaryReport(31);
 
                     break;
-/*
-                case 10:
-                    validInput = false;
-                    System.out.println("Enter the month:");
-                    int month = 0;
-                    while (!validInput) {
-                        String input = scanner.nextLine();
-                        try {
-                            month = Integer.parseInt(input);
-                            validInput = true;
-                        } catch (NumberFormatException e) {
-                            System.out.println("Month must be an integer. Please try again.");
-                        }
-                    }
-                    validInput = false;
-                    System.out.println("Enter the year:");
-                    int year = 0;
-                    while (!validInput) {
-                        String input = scanner.nextLine();
-                        try {
-                            year = Integer.parseInt(input);
-                            validInput = true;
-                        } catch (NumberFormatException e) {
-                            System.out.println("Year must be an integer. Please try again.");
-                        }
-                    }
-                    List<Appointment> monthlyAppointments = appointmentDataAccess.getAppointmentsByMonthYear(month, year);
-                    for (Appointment appointment : monthlyAppointments) {
-                        String formattedDate = dateFormat.format(appointment.getDate());
-                        System.out.println("Appointment ID: " + appointment.getAppointment_id() +
-                                ", Date: " + formattedDate +
-                                ", Time: " + appointment.getTime() +
-                                ", Patient Name: " + appointment.getPatient_name() +
-                                ", Notes: " + appointment.getPrescription());
-                    }
-                    break;
-                    */
-
 
                 case 10:
                     clinicDataAccess.getClinicInfo();
