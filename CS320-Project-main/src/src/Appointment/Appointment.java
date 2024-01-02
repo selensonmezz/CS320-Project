@@ -1,6 +1,6 @@
 package Appointment;
 
-import java.util.*;
+import java.sql.Date;
 
 public class Appointment {
 

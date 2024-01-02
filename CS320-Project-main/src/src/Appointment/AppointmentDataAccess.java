@@ -15,7 +15,7 @@ public class AppointmentDataAccess {
 
     public void createAppointment(Appointment appointment) {
         try {
-            String sql = "INSERT INTO appointment (date, time, patient_name, notes) VALUES (?, ?, ?, ?)";
+            String sql = "INSERT INTO appointment (date, time, patient_name, prescription) VALUES (?, ?, ?, ?)";
             PreparedStatement preparedStatement = databaseConnection.prepareStatement(sql);
             preparedStatement.setDate(1, new java.sql.Date(appointment.getDate().getTime()));
             preparedStatement.setString(2, appointment.getTime());
@@ -44,9 +44,9 @@ public class AppointmentDataAccess {
                 int appointment_id = resultSet.getInt("appointment_id");
                 Date date = resultSet.getDate("date");
                 String time = resultSet.getString("time");
-                String prescription = resultSet.getString("notes");
+                String prescription = resultSet.getString("prescription");
                 String patientName = resultSet.getString("patient_name");
-                appointments.add(new Appointment(appointment_id, date, time, patientName, prescription));
+                appointments.add(new Appointment(appointment_id, (java.sql.Date) date, time, patientName, prescription));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -66,7 +66,7 @@ public class AppointmentDataAccess {
                 int appointment_id = resultSet.getInt("appointment_id");
                 Date date = resultSet.getDate("date");
                 String time = resultSet.getString("time");
-                String prescription = resultSet.getString("notes");
+                String prescription = resultSet.getString("prescription");
                 String patientName = resultSet.getString("patient_name");
                 appointments.add(new Appointment(appointment_id, (java.sql.Date) date, time, patientName, prescription));
             }
@@ -78,7 +78,7 @@ public class AppointmentDataAccess {
 
     public void updateAppointment(Appointment appointment) {
         try {
-            String sql = "UPDATE appointment SET date = ?, time = ?, patient_name = ?, notes = ? WHERE appointment_id = ?";
+            String sql = "UPDATE appointment SET date = ?, time = ?, patient_name = ?, prescription = ? WHERE appointment_id = ?";
             PreparedStatement preparedStatement = databaseConnection.prepareStatement(sql);
             preparedStatement.setDate(1, new java.sql.Date(appointment.getDate().getTime()));
             preparedStatement.setString(2, appointment.getTime());
