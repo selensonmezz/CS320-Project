@@ -1,10 +1,14 @@
 package Appointment;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.junit.After;
@@ -42,7 +46,59 @@ public class AppointmentDataAccessTest {
         assertTrue("Appointment not created successfully", containsAppointment(allAppointments, testAppointment));
     }
 
-    
+    @Test
+    public void testDeleteAppointment() {
+        // Get the test appointment ID
+        int testAppointmentId = getTestAppointmentId();
+
+        // Delete the test appointment
+        appointmentDataAccess.deleteAppointment(testAppointmentId);
+
+        // Verify that the appointment has been deleted
+        assertTrue("Appointment should be deleted", isAppointmentDeleted(testAppointmentId));
+    }
+
+    private int getTestAppointmentId() {
+        // Retrieve the ID of the test appointment for deletion
+        int testAppointmentId = 1;
+        try {
+            Statement statement = connection.createStatement();
+            String selectSql = "SELECT appointment_id FROM appointment WHERE patient_name = 'Test Patient'";
+            var resultSet = statement.executeQuery(selectSql);
+
+            if (resultSet.next()) {
+                testAppointmentId = resultSet.getInt("appointment_id");
+            }
+
+            resultSet.close();
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return testAppointmentId;
+    }
+
+    private boolean isAppointmentDeleted(int appointmentId) {
+        // Check if the appointment with the given ID is deleted
+        try {
+            Statement statement = connection.createStatement();
+            String selectSql = "SELECT * FROM appointment WHERE appointment_id = " + appointmentId;
+            var resultSet = statement.executeQuery(selectSql);
+
+            // If the result set is empty, the appointment is considered deleted
+            boolean isDeleted = !resultSet.next();
+
+            resultSet.close();
+            statement.close();
+
+            return isDeleted;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
     // Helper method to check if an appointment is in the list
     private boolean containsAppointment(List<Appointment> appointments, Appointment targetAppointment) {
         for (Appointment appointment : appointments) {
