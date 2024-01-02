@@ -6,6 +6,8 @@ import Clinic.ClinicDataAccess;
 import Patient.Patient;
 import Patient.PatientDataAccess;
 import Main.InputValidator;
+import ReportGenerator.ReportGenerator;
+
 import java.sql.*;
 
 import javax.management.InvalidApplicationException;
@@ -36,12 +38,12 @@ public class Menu {
         System.out.println("Type 3 to Update Patient information");
         System.out.println("Type 4 to Delete a Patient");
         System.out.println("Type 5 to View available appointments");
-        System.out.println("Type 6 View scheduled appointments");
-        System.out.println("Type 7 Create an appointment");
-        System.out.println("Type 8 to Update an appointment");
-        System.out.println("Type 9 to Delete an appointment");
-        System.out.println("Type 10 to View report schedule appointments of the month");
-        System.out.println("Type 11 to View details of Clinic");
+        //System.out.println("Type 6 View scheduled appointments");
+        System.out.println("Type 6 Create an appointment");
+        System.out.println("Type 7 to Update an appointment");
+        System.out.println("Type 8 to Delete an appointment");
+        System.out.println("Type 9 to View report schedule appointments of the month");
+        System.out.println("Type 10 to View details of Clinic");
         System.out.println("Type 0 to Exit");
         System.out.print("Select an option: ");
     }
@@ -137,7 +139,7 @@ public class Menu {
                     break;
 
                 case 5:
-                    List<Appointment> availableAppointments = appointmentDataAccess.getAvailableAppointments();
+                    List<Appointment> availableAppointments = appointmentDataAccess.listAllAppointments();
                     for (Appointment appointment : availableAppointments) {
                         String formattedDate = dateFormat.format(appointment.getDate());
                         System.out.println("Appointment ID: " + appointment.getAppointment_id() +
@@ -149,18 +151,6 @@ public class Menu {
                     break;
 
                 case 6:
-                    List<Appointment> scheduledAppointments = appointmentDataAccess.getScheduledAppointments();
-                    for (Appointment appointment : scheduledAppointments) {
-                        String formattedDate = dateFormat.format(appointment.getDate());
-                        System.out.println("Appointment ID: " + appointment.getAppointment_id() +
-                                ", Date: " + formattedDate +
-                                ", Time: " + appointment.getTime() +
-                                ", Patient Name: " + appointment.getPatient_name() +
-                                ", Prescription: " + appointment.getPrescription());
-                    }
-                    break;
-
-                case 7:
                     System.out.println("Enter appointment date (yyyy-MM-dd):");
                     String dateString = scanner.nextLine();
 
@@ -183,7 +173,7 @@ public class Menu {
                     }
                     break;
 
-                case 8:
+                case 7:
                     validInput = false;
                     System.out.println("Enter appointment ID to update:");
                     int updateAppointmentId = 0;
@@ -206,7 +196,7 @@ public class Menu {
                     appointmentDataAccess.updateAppointment(updatedAppointment);
                     break;
 
-                case 9:
+                case 8:
                     validInput = false;
                     System.out.println("Enter appointment ID to delete:");
                     int deleteAppointmentId = 0;
@@ -222,6 +212,12 @@ public class Menu {
                     appointmentDataAccess.deleteAppointment(deleteAppointmentId);
                     break;
 
+                case 9:
+                    ReportGenerator reportGenerator = new ReportGenerator(appointmentDataAccess);
+                    reportGenerator.generateSummaryReport(30);
+
+                    break;
+/*
                 case 10:
                     validInput = false;
                     System.out.println("Enter the month:");
@@ -257,8 +253,10 @@ public class Menu {
                                 ", Notes: " + appointment.getPrescription());
                     }
                     break;
+                    */
 
-                case 11:
+
+                case 10:
                     clinicDataAccess.getClinicInfo();
                     break;
 
