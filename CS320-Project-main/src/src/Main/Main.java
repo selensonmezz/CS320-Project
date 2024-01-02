@@ -18,14 +18,31 @@ public class Main {
 
         // Initialize and start the menu
         Menu menu = new Menu(appointmentDataAccess, patientDataAccess, clinicDataAccess);
-        try {
-            menu.initiateMenu();
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("An error occurred while running the application.");
-        } finally {
-            // Close the connection after menu operations are done
+        if (performLogin()) {
+            try {
+                menu.initiateMenu();
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.out.println("An error occurred while running the application.");
+            } finally {
+                // Close the connection after menu operations are done
+                DatabaseConnector.closeConnection();
+            }
+        } else {
+            System.out.println("Login failed. Exiting the application.");
+            // Close the connection without running the menu
             DatabaseConnector.closeConnection();
         }
     }
-}
+
+    private static boolean performLogin() {
+        try {
+            // Call the login method from the Login class
+            return User.Login.login();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("An error occurred during login.");
+            return false;
+        }
+    }
+    }
