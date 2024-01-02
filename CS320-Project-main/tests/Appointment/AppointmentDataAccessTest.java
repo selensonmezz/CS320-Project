@@ -58,6 +58,46 @@ public class AppointmentDataAccessTest {
         assertTrue("Appointment should be deleted", isAppointmentDeleted(testAppointmentId));
     }
 
+    @Test
+    public void testListAllAppointments() {
+        // Get the list of all appointments from the method
+        List<Appointment> allAppointments = appointmentDataAccess.listAllAppointments();
+
+        // Verify that the number of appointments matches the expected count
+        assertEquals("Number of appointments should match", 3, allAppointments.size());
+    }
+
+    @Test
+    public void testListAvailableAppointments() throws ParseException, ParseException {
+        // Create a test date
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date testDate = dateFormat.parse("2023-12-01");
+
+        // Get the list of available appointments for the test date
+        List<String> availableSlots = appointmentDataAccess.listAvailableAppointments(testDate);
+
+        // Verify that the list of available slots is not empty
+        assertTrue("Available slots should not be empty", !availableSlots.isEmpty());
+    } @Test
+    public void testUpdateAppointment() {
+        // Create an Appointment object for testing
+        Appointment testAppointment = new Appointment(2, new java.sql.Date(System.currentTimeMillis()), "10:00 AM", "Test Patient", "Test Prescription");
+
+        // Call the createAppointment method to add the test appointment to the database
+        appointmentDataAccess.createAppointment(testAppointment);
+
+        // Update the test appointment details
+        testAppointment.setTime("11:00 AM");
+        testAppointment.setPrescription("Updated Prescription");
+
+        // Call the updateAppointment method
+        appointmentDataAccess.updateAppointment(testAppointment);
+
+        // Retrieve the list of all appointments and check if the test appointment is updated
+        List<Appointment> allAppointments = appointmentDataAccess.listAllAppointments();
+        assertTrue("Appointment not updated successfully", containsAppointment(allAppointments, testAppointment));
+    }
+
     private int getTestAppointmentId() {
         // Retrieve the ID of the test appointment for deletion
         int testAppointmentId = 1;
