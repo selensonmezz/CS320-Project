@@ -9,6 +9,7 @@ public class AppointmentDataAccess {
     private Connection databaseConnection;
 
     public AppointmentDataAccess(Connection databaseConnection) {
+
         this.databaseConnection = databaseConnection;
     }
 
