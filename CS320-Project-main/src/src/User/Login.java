@@ -6,7 +6,7 @@ public class Login {
 
         public static boolean login () {
             try {
-                File file = new File("C:/Users/deniz/Documents/GitHub/CS320-Project/CS320-Project-main/doctor_info.txt");
+                File file = new File("/Users/hazaryakal/Documents/GitHub/CS320-Project/CS320-Project-main/doctor_info.txt");
                 Scanner fileScanner = new Scanner(file);
 
                 String docName = fileScanner.nextLine();
