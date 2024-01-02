@@ -2,9 +2,9 @@ package Main;
 import java.sql.*;
 
 public class DatabaseConnector {
-    private static final String URL = "jdbc:mysql://localhost:3306/CBS";
-    private static final String USERNAME = "";
-    private static final String PASSWORD = "";
+    private static final String URL = "jdbc:mysql://localhost:3306/CBS2";
+    private static final String USERNAME = "root";
+    private static final String PASSWORD = "hy178578";
     private static Connection connection = null;
 
     public static void establishConnection() {

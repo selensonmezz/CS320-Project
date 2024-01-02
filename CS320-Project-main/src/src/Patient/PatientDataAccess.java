@@ -28,7 +28,7 @@ public class PatientDataAccess {
 
     public void updatePatient(Patient patient) {
         try {
-            String sql = "UPDATE patient SET first_name = ?, last_name = ?, date_of_birth = ? WHERE id = ?";
+            String sql = "UPDATE patient SET first_name = ?, last_name = ?, phone_num = ? WHERE patient_id = ?";
             PreparedStatement preparedStatement = databaseConnection.prepareStatement(sql);
             preparedStatement.setString(1, patient.getFirstName());
             preparedStatement.setString(2, patient.getLastName());
