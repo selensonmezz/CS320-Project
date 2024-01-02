@@ -1,6 +1,7 @@
 package Patient;
 import Main.DatabaseConnector;
 import java.sql.*;
+import java.util.Scanner;
 
 public class PatientDataAccess {
     private Connection databaseConnection;
@@ -62,6 +63,35 @@ public class PatientDataAccess {
             String sql = "SELECT * FROM patient;";
             PreparedStatement preparedStatement = databaseConnection.prepareStatement(sql);
             ResultSet r = preparedStatement.executeQuery();
+            while(r.next()) {
+                int patient_id = r.getInt("patient_id");
+                String patient_name = r.getString("first_name");
+                String patient_lastName = r.getString("last_name");
+                String phone_number = r.getString("phone_num");
+                System.out.println(patient_id + " " + patient_name + " " + patient_lastName + " " + phone_number);
+            }
+            System.out.println("\nEnter the specific patient_id:");
+            Scanner s = new Scanner(System.in);
+            int input = s.nextInt();
+
+            if(input != 0) {
+                displayPatient(input);
+            }
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void displayPatient(int patientId) {
+        try {
+            String sql = "SELECT * FROM patient WHERE patient_id = ?;";
+            PreparedStatement preparedStatement = databaseConnection.prepareStatement(sql);
+            preparedStatement.setInt(1, patientId);
+            ResultSet r = preparedStatement.executeQuery();
+
             while(r.next()) {
                 int patient_id = r.getInt("patient_id");
                 String patient_name = r.getString("first_name");
