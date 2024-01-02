@@ -144,7 +144,7 @@ public class Menu {
                                 ", Date: " + formattedDate +
                                 ", Time: " + appointment.getTime() +
                                 ", Patient Name: " + appointment.getPatient_name() +
-                                ", Notes: " + appointment.getNotes());
+                                ", Prescription: " + appointment.getPrescription());
                     }
                     break;
 
@@ -156,7 +156,7 @@ public class Menu {
                                 ", Date: " + formattedDate +
                                 ", Time: " + appointment.getTime() +
                                 ", Patient Name: " + appointment.getPatient_name() +
-                                ", Notes: " + appointment.getNotes());
+                                ", Prescription: " + appointment.getPrescription());
                     }
                     break;
 
