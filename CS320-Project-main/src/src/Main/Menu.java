@@ -37,7 +37,7 @@ public class Menu {
         System.out.println("Type 2 to List all Patients");
         System.out.println("Type 3 to Update Patient information");
         System.out.println("Type 4 to Delete a Patient");
-        System.out.println("Type 5 to View available appointments");
+        System.out.println("Type 5 to View scheduled appointments");
         System.out.println("Type 6 Create an appointment");
         System.out.println("Type 7 to Update an appointment");
         System.out.println("Type 8 to Delete an appointment");
@@ -138,8 +138,8 @@ public class Menu {
                     break;
 
                 case 5:
-                    List<Appointment> availableAppointments = appointmentDataAccess.listAllAppointments();
-                    for (Appointment appointment : availableAppointments) {
+                    List<Appointment> scheduledAppointments = appointmentDataAccess.listAllAppointments();
+                    for (Appointment appointment : scheduledAppointments) {
                         String formattedDate = dateFormat.format(appointment.getDate());
                         System.out.println("Appointment ID: " + appointment.getAppointment_id() +
                                 ", Date: " + formattedDate +
