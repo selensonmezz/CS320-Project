@@ -28,5 +28,8 @@ public class Patient {
     public String getPhoneNum() {
         return phone_num;
     }
+
+    public void setPhoneNum(String updatedPhoneNumber) {
+    }
 }
 
