@@ -72,13 +72,6 @@ public class PatientDataAccess {
                 System.out.println(patient_id + " " + patient_name + " " + patient_lastName + " " + phone_number);
                 patients.add(new Patient(patient_id, patient_name, patient_lastName, phone_number));
             }
-            System.out.println("\nEnter the specific patient_id:");
-            Scanner s = new Scanner(System.in);
-            int input = s.nextInt();
-
-            if(input != 0) {
-                displayPatient(input);
-            }
 
 
         } catch (SQLException e) {
