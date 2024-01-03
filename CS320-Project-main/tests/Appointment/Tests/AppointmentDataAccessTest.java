@@ -1,4 +1,4 @@
-package Appointment;
+package Tests;
 
 import static org.junit.Assert.*;
 
@@ -11,6 +11,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import Appointment.Appointment;
+import Appointment.AppointmentDataAccess;
+import Main.DatabaseConnector;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,8 +26,8 @@ public class AppointmentDataAccessTest {
     @Before
     public void setUp() {
         // Initialize the connection and AppointmentDataAccess before each test
-        connection = establishConnection();
-        appointmentDataAccess = new AppointmentDataAccess(connection);
+        DatabaseConnector.establishConnection();
+        appointmentDataAccess = new AppointmentDataAccess(DatabaseConnector.getConnection());
     }
 
     @After
