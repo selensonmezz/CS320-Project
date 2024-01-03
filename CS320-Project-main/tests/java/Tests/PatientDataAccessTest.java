@@ -6,6 +6,10 @@ import static org.junit.Assert.*;
 import java.sql.*;
 import java.util.List;
 
+import Main.DatabaseConnector;
+import Patient.Patient;
+import Patient.PatientDataAccess;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,8 +22,8 @@ public class PatientDataAccessTest {
 
     @Before
     public void setUp() {
-        connection = establishConnection();
-        patientDataAccess = new PatientDataAccess(connection);
+        DatabaseConnector.establishConnection();
+        patientDataAccess = new PatientDataAccess(DatabaseConnector.getConnection());
     }
 
     @After
@@ -44,7 +48,7 @@ public class PatientDataAccessTest {
 
     @Test
     public void testDeletePatient() {
-       
+
         patientDataAccess.deletePatient(0);
 
         Patient deletedPatient = patientDataAccess.displayPatient(0);

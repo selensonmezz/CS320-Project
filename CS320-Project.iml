@@ -6,10 +6,11 @@
       <sourceFolder url="file://$MODULE_DIR$/CS320-Project-main/src/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/CS320-Project-main/tests/Appointment" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/CS320-Project-main/tests/User" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/CS320-Project-main/tests/java" isTestSource="true" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module-library">
+    <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
           <root url="jar://$USER_HOME$/Downloads/mysql-connector-j-8.2.0/mysql-connector-j-8.2.0.jar!/" />

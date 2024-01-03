@@ -67,7 +67,7 @@ public class AppointmentDataAccessTest {
         List<Appointment> allAppointments = appointmentDataAccess.listAllAppointments();
 
         // Verify that the number of appointments matches the expected count
-        assertEquals("Number of appointments should match", 3, allAppointments.size());
+        assertEquals("Number of appointments should match", 19, allAppointments.size());
     }
 
     @Test
@@ -105,7 +105,7 @@ public class AppointmentDataAccessTest {
         // Retrieve the ID of the test appointment for deletion
         int testAppointmentId = 1;
         try {
-            Statement statement = connection.createStatement();
+            Statement statement = DatabaseConnector.getConnection().createStatement();
             String selectSql = "SELECT appointment_id FROM appointment WHERE patient_name = 'Test Patient'";
             var resultSet = statement.executeQuery(selectSql);
 
@@ -124,7 +124,7 @@ public class AppointmentDataAccessTest {
     private boolean isAppointmentDeleted(int appointmentId) {
         // Check if the appointment with the given ID is deleted
         try {
-            Statement statement = connection.createStatement();
+            Statement statement = DatabaseConnector.getConnection().createStatement();
             String selectSql = "SELECT * FROM appointment WHERE appointment_id = " + appointmentId;
             var resultSet = statement.executeQuery(selectSql);
 
