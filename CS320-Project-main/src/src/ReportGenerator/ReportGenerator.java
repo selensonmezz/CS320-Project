@@ -26,13 +26,13 @@ import java.util.List;
 
         }
 
-        private boolean isLastDayOfMonth(int dayToCheck) {
+        public boolean isLastDayOfMonth(int dayToCheck) {
             Calendar calendar = Calendar.getInstance();
             int lastDayOfMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
             return dayToCheck == lastDayOfMonth;
         }
 
-        private List<Appointment> filterLastMonthAppointments(List<Appointment> appointments) {
+        public List<Appointment> filterLastMonthAppointments(List<Appointment> appointments) {
             Calendar lastMonth = Calendar.getInstance();
             lastMonth.add(Calendar.MONTH, -1);
 
@@ -45,7 +45,9 @@ import java.util.List;
                     .toList();
         }
 
-        private void displaySummaryReport(List<Appointment> appointments) {
+
+
+        public void displaySummaryReport(List<Appointment> appointments) {
             System.out.println("Last Month's Appointments Summary Report:");
             System.out.println("----------------------------------------");
 
