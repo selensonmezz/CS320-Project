@@ -1,6 +1,8 @@
 package Patient;
 import Main.DatabaseConnector;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class PatientDataAccess {
@@ -78,7 +80,7 @@ public class PatientDataAccess {
             e.printStackTrace();
         }
 
-        retrun patients;
+        return patients;
 
     }
 
@@ -104,8 +106,7 @@ public class PatientDataAccess {
             e.printStackTrace();
         }
 
+        return patient;
     }
-
-    return patient;
 
 }
