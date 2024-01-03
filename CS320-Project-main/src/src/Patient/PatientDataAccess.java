@@ -58,7 +58,8 @@ public class PatientDataAccess {
         }
     }
 
-    public void listAllPatients() {
+    public List<Patient> listAllPatients() {
+        List<Patient> patients = new ArrayList<Patient>();
         try {
             String sql = "SELECT * FROM patient;";
             PreparedStatement preparedStatement = databaseConnection.prepareStatement(sql);
@@ -69,13 +70,7 @@ public class PatientDataAccess {
                 String patient_lastName = r.getString("last_name");
                 String phone_number = r.getString("phone_num");
                 System.out.println(patient_id + " " + patient_name + " " + patient_lastName + " " + phone_number);
-            }
-            System.out.println("\nEnter the specific patient_id:");
-            Scanner s = new Scanner(System.in);
-            int input = s.nextInt();
-
-            if(input != 0) {
-                displayPatient(input);
+                patients.add(new Patient(patient_id, patient_name, patient_lastName, phone_number));
             }
 
 
@@ -83,9 +78,12 @@ public class PatientDataAccess {
             e.printStackTrace();
         }
 
+        retrun patients;
+
     }
 
-    public void displayPatient(int patientId) {
+    public Patient displayPatient(int patientId) {
+        Patient patient = null;
         try {
             String sql = "SELECT * FROM patient WHERE patient_id = ?;";
             PreparedStatement preparedStatement = databaseConnection.prepareStatement(sql);
@@ -98,6 +96,7 @@ public class PatientDataAccess {
                 String patient_lastName = r.getString("last_name");
                 String phone_number = r.getString("phone_num");
                 System.out.println(patient_id + " " + patient_name + " " + patient_lastName + " " + phone_number);
+                patient = new Patient(patient_id, patient_name, patient_lastName, phone_number);
             }
 
 
@@ -106,5 +105,7 @@ public class PatientDataAccess {
         }
 
     }
+
+    return patient;
 
 }

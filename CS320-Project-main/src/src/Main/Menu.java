@@ -99,7 +99,13 @@ public class Menu {
                     break;
 
                 case 2:
-                    patientDataAccess.listAllPatients();
+                    List<Patient> patients = patientDataAccess.listAllPatients();
+
+                    System.out.println("Enter the specific patient_id:");
+                    int i = scanner.nextInt();
+                    if(i != 0) {
+                        Patient patient = patientDataAccess.displayPatient(i);
+                    }
                     break;
 
                 case 3:
