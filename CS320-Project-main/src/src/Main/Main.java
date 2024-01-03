@@ -10,7 +10,7 @@ public class Main {
     public static void main(String[] args) {
         // Establish connection
         DatabaseConnector.establishConnection();
-        ;
+
 
         // Create data access objects for appointments and patients
         AppointmentDataAccess appointmentDataAccess = new AppointmentDataAccess(DatabaseConnector.getConnection());
