@@ -8,7 +8,7 @@ import java.util.Calendar;
 import java.util.List;
     public class ReportGenerator {
 
-        private final AppointmentDataAccess appointmentDataAccess;
+        private AppointmentDataAccess appointmentDataAccess;
 
         public ReportGenerator(AppointmentDataAccess appointmentDataAccess) {
             this.appointmentDataAccess = appointmentDataAccess;
@@ -49,7 +49,7 @@ import java.util.List;
             System.out.println("Last Month's Appointments Summary Report:");
             System.out.println("----------------------------------------");
 
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
             for (Appointment appointment : appointments) {
                 System.out.println("ID: " + appointment.getAppointment_id());
